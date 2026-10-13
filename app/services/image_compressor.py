@@ -38,7 +38,7 @@ def compress_image(
     raw: bytes,
     *,
     quality: int = DEFAULT_QUALITY,
-    png_lossy: bool = False
+    png_lossy: bool = True
 ) -> ImageCompressResult:
     img, fmt = _open_and_validate(raw)
     media_type = SUPPORTED_FORMATS[fmt]

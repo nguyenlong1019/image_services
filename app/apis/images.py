@@ -55,7 +55,7 @@ async def compress_image_api(
         content=result.data,
         media_type=result.media_type,
         headers={
-            "Content-Disposition": f'inline; filename="compressed.{ext}"',
+            "Content-Disposition": f'attachment; filename="compressed.{ext}"',
             "X-Original-Size": str(result.original_size),
             "X-Compressed-Size": str(result.compressed_size),
         }

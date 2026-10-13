@@ -1,0 +1,7 @@
+services:
+  api:
+    image: ghcr.io/nguyenlong1019/image_services:${IMAGE_TAG:?IMAGE_TAG is not set}
+    restart: unless-stopped 
+    ports:
+      - "127.0.0.1:8000:8000"
+    stop_grace_period: 30s
