@@ -6,3 +6,5 @@
 - RestAPI, webhook: authentication, idempotency, retry, handle timeout
 - Unittest, CI, CD 
 - Docker/Docker compose, linux base
+- Ruff: https://docs.astral.sh/ruff/rules/
+- Mypy: mypy app

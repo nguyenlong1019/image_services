@@ -39,9 +39,8 @@ def compress_image(
     *,
     quality: int = DEFAULT_QUALITY,
     png_lossy: bool = False
-):
-    img = _open_and_validate(raw)
-    fmt = img.format 
+) -> ImageCompressResult:
+    img, fmt = _open_and_validate(raw)
     media_type = SUPPORTED_FORMATS[fmt]
 
     icc_profile = img.info.get("icc_profile")
@@ -61,7 +60,7 @@ def compress_image(
     )
 
 
-def _open_and_validate(raw: bytes) -> Image.Image:
+def _open_and_validate(raw: bytes) -> tuple[Image.Image, str]:
     try:
         img = Image.open(io.BytesIO(raw))
     except UnidentifiedImageError as e:
@@ -76,7 +75,7 @@ def _open_and_validate(raw: bytes) -> Image.Image:
         img.load()
     except OSError as e:
         raise InvalidImageError("Corrupted image data") from e
-    return img 
+    return img, img.format
 
 
 def _encode_jpeg(img: Image.Image, quality: int, icc_profile: bytes | None) -> bytes:

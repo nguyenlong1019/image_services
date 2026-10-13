@@ -1,0 +1,60 @@
+name: CI 
+
+on: 
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+
+permissions:
+  contents: read 
+
+jobs:
+  lint:
+    name: Lint check 
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v7 
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.10"
+      - run: pip install ruff==0.17.0
+      - run: ruff check 
+
+  typecheck:
+    name: Type check 
+    runs-on: ubuntu-latest 
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v7 
+
+      - name: Setup Python 
+        uses: actions/setup-python@v7 
+        with:
+          python-version: "3.12.10"
+          cache: pip 
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt 
+          pip install mypy==2.4.0
+      - name: Run mypy 
+        run: mypy app 
+
+  test:
+    name: Test check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps: 
+      - uses: actions/checkout@v7 
+      - uses: actions/setup-python@v7 
+        with:
+          python-version: "3.12.10"
+          cache: pip 
+      - run: pip install -r requirements.txt 
+      - run: python -m pytest -v 

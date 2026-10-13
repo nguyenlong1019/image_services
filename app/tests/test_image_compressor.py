@@ -3,7 +3,7 @@ from PIL import Image
 from app.services.image_compressor import compress_image
 
 
-def test_compress_jpeg_returns_smaller_valid_jpeg(jpeg_bytes: bytes):
+def test_compress_jpeg_returns_smaller_valid_jpeg(jpeg_bytes: bytes) -> None:
     result = compress_image(jpeg_bytes, quality=70)
 
     assert result.media_type == 'image/jpeg'

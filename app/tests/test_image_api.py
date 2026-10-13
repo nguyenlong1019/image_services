@@ -5,7 +5,7 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_compress_endpoint_returns_compressed_jpeg(jpeg_bytes: bytes):
+def test_compress_endpoint_returns_compressed_jpeg(jpeg_bytes: bytes) -> None:
     response = client.post(
         '/api/v1/image/compress',
         files = {"file": ("photo.jpg", jpeg_bytes, 'image/jpeg')},
